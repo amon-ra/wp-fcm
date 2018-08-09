@@ -131,6 +131,14 @@ function fcm_main_parse_requests(){
 
 /* Handle notification when add/update post*/
 function fcm_main_transition_post($new_status, $old_status, $post){
+    /*
+		 * If this is an autosave, our form has not been submitted,
+		 * so we don't want to do anything.
+		 */
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+      return ;
+    }
+    fcm_transition_post($new_status, $old_status, $post);
 	fcm_notif_post($new_status, $old_status, $post);
 }
 
